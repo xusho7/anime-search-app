@@ -15,9 +15,6 @@ A simple web app that allows users to search for anime titles using a public API
 - Fetch API
 - Jikan API (MyAnimeList data)
 
-## 📸 Preview
-(You can add a screenshot here later)
-
 ## 💡 What I Learned
 - DOM manipulation
 - Working with APIs using fetch
@@ -31,4 +28,4 @@ A simple web app that allows users to search for anime titles using a public API
 - Add click details page
 
 ## 👤 Author
-Built by Shota (student learning frontend development)
+Built by Shota 
