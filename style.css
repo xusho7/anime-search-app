@@ -1,0 +1,65 @@
+body { 
+    font-family: Arial;
+    text-align: center;
+    margin-top: 50px;
+}
+
+input {
+    padding: 10px;
+    width: 200px; 
+}
+
+button {
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+p {
+    margin-top: 20px;
+}
+
+
+/* ===== Result container (holds all anime cards) ===== */
+#result {
+    display: grid; /* turns layout into a grid system (like rows + columns) */
+
+    /* 
+    auto-fit → automatically fits as many cards per row as possible  
+    minmax(150px, 1fr) → each card is at least 150px, but can grow evenly  
+    This makes the layout responsive (works on mobile + desktop)
+    */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+    gap: 20px;      /* space between each anime card */
+    padding: 20px;  /* space around the whole grid */
+}
+
+
+/* ===== Each anime card ===== */
+.anime-card {
+    background: white;              /* card background color */
+    border-radius: 12px;            /* rounded corners */
+    overflow: hidden;               /* keeps image inside rounded edges */
+    text-align: center;             /* centers text inside card */
+
+    /* shadow gives a floating card effect (modern UI look) */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    /* smooth animation when hovering */
+    transition: transform 0.2s ease;
+}
+
+
+/* ===== Anime image inside each card ===== */
+.anime-card img {
+    width: 100%;        /* image fills full width of card */
+    height: 200px;      /* fixed height so all images are equal */
+    object-fit: cover;  /* crops image nicely without stretching */
+}
+
+
+/* ===== Hover effect (when user moves mouse over card) ===== */
+.anime-card:hover {
+    transform: scale(1.05); /* slightly enlarges card */
+}
