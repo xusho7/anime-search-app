@@ -39,9 +39,34 @@ async function searchAnime() {
 
         <p>📅 Year: ${anime.year || "Unknown"}</p>
 
-        <p>📺 Status: ${anime.status}</p>
+        <p>📺 Status: ${anime.status || "Unknown"}</p>
+
+        <p class="synopsis">
+            ${anime.synopsis?.slice(0, 250) || "No synopsis available"}...
+        </p>
+
+        <button 
+            class="read-more-btn"
+            data-full="${anime.synopsis || "No synopsis available"}">
+            Read More
+        </button>
     </div>
 `).join("");
+
+const buttons = document.querySelectorAll(".read-more-btn");
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", function() {
+
+        const fullSynopsis = button.dataset.full;
+
+        const synopsisParagraph =
+            button.parentElement.querySelector(".synopsis");
+
+        synopsisParagraph.innerHTML = fullSynopsis;
+    });
+});
 } catch (error) {
     console.log(error);
 
