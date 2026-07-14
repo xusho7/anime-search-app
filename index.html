@@ -3,17 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Search App</title>
+    <title>Anime Explorer</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>Anime Search</h1>
 
-    <input type="text" id="searchInput" placeholder="Search anime...">
-    <button onclick="searchAnime()">Search</button>
-    
-    <p id="result"></p>
+<body>
+
+    <header>
+        <h1>🎌 Anime Explorer</h1>
+        <p>Discover your next favorite anime.</p>
+    </header>
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for an anime..."
+        >
+
+        <button onclick="searchAnime()">
+            🔍 Search
+        </button>
+
+    </div>
+
+    <div id="result">
+
+        <div class="welcome-card">
+            <h2>👋 Welcome!</h2>
+
+            <p>
+                Search for any anime to begin.
+            </p>
+
+        </div>
+
+    </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>

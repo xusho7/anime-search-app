@@ -1,65 +1,343 @@
-body { 
-    font-family: Arial;
-    text-align: center;
-    margin-top: 50px;
+/* ===========================
+   GENERAL
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-input {
-    padding: 10px;
-    width: 200px; 
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:linear-gradient(135deg,#0f172a,#1e293b,#312e81);
+
+    min-height:100vh;
+
+    color:white;
+
 }
 
-button {
-    padding: 10px;
-    cursor: pointer;
-    margin-left: 5px;
+/* ===========================
+   HEADER
+=========================== */
+
+header{
+
+    text-align:center;
+
+    padding:40px 20px;
+
 }
 
-p {
-    margin-top: 20px;
+header h1{
+
+    font-size:3rem;
+
+    margin-bottom:10px;
+
 }
 
+header p{
 
-/* ===== Result container (holds all anime cards) ===== */
-#result {
-    display: grid; /* turns layout into a grid system (like rows + columns) */
+    color:#cbd5e1;
 
-    /* 
-    auto-fit → automatically fits as many cards per row as possible  
-    minmax(150px, 1fr) → each card is at least 150px, but can grow evenly  
-    This makes the layout responsive (works on mobile + desktop)
-    */
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    font-size:1.1rem;
 
-    gap: 20px;      /* space between each anime card */
-    padding: 20px;  /* space around the whole grid */
 }
 
+/* ===========================
+   SEARCH BAR
+=========================== */
 
-/* ===== Each anime card ===== */
-.anime-card {
-    background: white;              /* card background color */
-    border-radius: 12px;            /* rounded corners */
-    overflow: hidden;               /* keeps image inside rounded edges */
-    text-align: center;             /* centers text inside card */
+.search-container{
 
-    /* shadow gives a floating card effect (modern UI look) */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display:flex;
 
-    /* smooth animation when hovering */
-    transition: transform 0.2s ease;
+    justify-content:center;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:40px;
+
+    flex-wrap:wrap;
+
 }
 
+#searchInput{
 
-/* ===== Anime image inside each card ===== */
-.anime-card img {
-    width: 100%;        /* image fills full width of card */
-    height: 200px;      /* fixed height so all images are equal */
-    object-fit: cover;  /* crops image nicely without stretching */
+    width:380px;
+
+    max-width:90%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:15px;
+
+    outline:none;
+
+    font-size:16px;
+
+    background:rgba(255,255,255,.12);
+
+    color:white;
+
+    backdrop-filter:blur(12px);
+
 }
 
+#searchInput::placeholder{
 
-/* ===== Hover effect (when user moves mouse over card) ===== */
-.anime-card:hover {
-    transform: scale(1.05); /* slightly enlarges card */
+    color:#ddd;
+
+}
+
+button{
+
+    padding:16px 28px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#6366f1;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:#818cf8;
+
+    transform:translateY(-3px);
+
+}
+
+/* ===========================
+   RESULT GRID
+=========================== */
+
+#result{
+
+    width:90%;
+
+    max-width:1400px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+
+    padding-bottom:50px;
+
+}
+
+/* ===========================
+   ANIME CARD
+=========================== */
+
+.anime-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+    transition:.3s;
+
+    animation:fade .5s ease;
+
+}
+
+.anime-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+/* ===========================
+   IMAGE
+=========================== */
+
+.anime-card img{
+
+    width:100%;
+
+    height:420px;
+
+    object-fit:cover;
+
+}
+
+/* ===========================
+   CONTENT
+=========================== */
+
+.anime-card h3{
+
+    font-size:1.3rem;
+
+    padding:15px 20px 5px;
+
+}
+
+.anime-card p{
+
+    padding:3px 20px;
+
+    color:#e2e8f0;
+
+    font-size:.95rem;
+
+    line-height:1.5;
+
+}
+
+.synopsis{
+
+    margin-top:10px;
+
+    min-height:120px;
+
+}
+
+/* ===========================
+   READ MORE BUTTON
+=========================== */
+
+.read-more-btn{
+
+    width:85%;
+
+    margin:20px auto;
+
+    display:block;
+
+    background:#3b82f6;
+
+}
+
+.read-more-btn:hover{
+
+    background:#60a5fa;
+
+}
+
+/* ===========================
+   WELCOME CARD
+=========================== */
+
+.welcome-card{
+
+    grid-column:1/-1;
+
+    text-align:center;
+
+    padding:70px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+}
+
+.welcome-card h2{
+
+    margin-bottom:15px;
+
+    font-size:2rem;
+
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#6366f1;
+
+    border-radius:20px;
+
+}
+
+/* ===========================
+   ANIMATION
+=========================== */
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+    header h1{
+
+        font-size:2.2rem;
+
+    }
+
+    #searchInput{
+
+        width:90%;
+
+    }
+
+    .anime-card img{
+
+        height:350px;
+
+    }
+
 }

@@ -1,86 +1,156 @@
-// Runs when user clicks Search or presses Enter
+// Escapes text so it can't break out of HTML
+function escapeHTML(str) {
+    const div = document.createElement("div");
+    div.textContent = str || "";
+    return div.innerHTML;
+}
+
+// Runs when Search is clicked or Enter is pressed
 async function searchAnime() {
 
     const input = document.getElementById("searchInput").value;
-
     const result = document.getElementById("result");
 
     if (input.trim() === "") {
         result.innerHTML = "<p>Please type something 👀</p>";
-        return; 
+        return;
     }
 
     result.innerHTML = "<p>Searching anime... ⏳</p>";
 
+    const query = `
+    query ($search: String) {
+      Page(page: 1, perPage: 10) {
+        media(search: $search, type: ANIME) {
+          title {
+            romaji
+            english
+          }
+          description(asHtml: false)
+          episodes
+          averageScore
+          seasonYear
+          status
+          coverImage {
+            large
+          }
+        }
+      }
+    }
+    `;
+
+    const variables = {
+        search: input
+    };
+
     try {
-    
-    const response = await fetch(`https://api.jikan.moe/v4/anime?q=${input}`);
 
-    let data = await response.json();
-    console.log(data);
+        const response = await fetch("https://graphql.anilist.co", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                query,
+                variables
+            })
+        });
 
-    let animeList = data.data;
+        if (!response.ok) {
+            result.innerHTML = `<p>API Error (${response.status}) 😢</p>`;
+            return;
+        }
 
-    if (!animeList || animeList.length === 0) {
-        result.innerHTML = "<p>No anime found 😢</p>";
-        return;
+        const data = await response.json();
+
+        const animeList = data.data.Page.media;
+
+        if (!animeList || animeList.length === 0) {
+            result.innerHTML = "<p>No anime found 😢</p>";
+            return;
+        }
+
+        result.innerHTML = animeList.map(anime => {
+
+            const title = escapeHTML(
+                anime.title.english ||
+                anime.title.romaji ||
+                "Unknown Title"
+            );
+
+            const synopsis = escapeHTML(
+                anime.description || "No synopsis available."
+            );
+
+            const shortSynopsis =
+                synopsis.length > 250
+                    ? synopsis.slice(0, 250) + "..."
+                    : synopsis;
+
+            return `
+                <div class="anime-card">
+
+                    <img
+                        src="${anime.coverImage.large}"
+                        alt="${title}"
+                    >
+
+                    <h3>${title}</h3>
+
+                    <p>⭐ Score: ${anime.averageScore ?? "N/A"}</p>
+
+                    <p>🎬 Episodes: ${anime.episodes ?? "?"}</p>
+
+                    <p>📅 Year: ${anime.seasonYear ?? "Unknown"}</p>
+
+                    <p>📺 Status: ${anime.status ?? "Unknown"}</p>
+
+                    <p class="synopsis">${shortSynopsis}</p>
+
+                    <button
+                        class="read-more-btn"
+                        data-full="${synopsis}">
+                        Read More
+                    </button>
+
+                </div>
+            `;
+
+        }).join("");
+
+        document.querySelectorAll(".read-more-btn").forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                const synopsis = this.parentElement.querySelector(".synopsis");
+
+                synopsis.innerHTML = this.dataset.full;
+
+                this.remove();
+
+            });
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        result.innerHTML = `
+            <p>Something went wrong 😢</p>
+        `;
+
     }
 
-    // Convert anime list into HTML cards and display them
-    result.innerHTML = animeList.map(anime => `
-    <div class="anime-card">
-        <img src="${anime.images.jpg.image_url}" />
-
-        <h3>${anime.title}</h3>
-
-        <p>⭐ Score: ${anime.score || "N/A"}</p>
-
-        <p>🎬 Episodes: ${anime.episodes || "?"}</p>
-
-        <p>📅 Year: ${anime.year || "Unknown"}</p>
-
-        <p>📺 Status: ${anime.status || "Unknown"}</p>
-
-        <p class="synopsis">
-            ${anime.synopsis?.slice(0, 250) || "No synopsis available"}...
-        </p>
-
-        <button 
-            class="read-more-btn"
-            data-full="${anime.synopsis || "No synopsis available"}">
-            Read More
-        </button>
-    </div>
-`).join("");
-
-const buttons = document.querySelectorAll(".read-more-btn");
-
-buttons.forEach(button => {
-
-    button.addEventListener("click", function() {
-
-        const fullSynopsis = button.dataset.full;
-
-        const synopsisParagraph =
-            button.parentElement.querySelector(".synopsis");
-
-        synopsisParagraph.innerHTML = fullSynopsis;
-    });
-});
-} catch (error) {
-    console.log(error);
-
-    result.innerHTML = `
-        <p>something went wrong 😢</p>
-    `;
-}
 }
 
+// Press Enter to Search
 document.getElementById("searchInput")
 .addEventListener("keydown", function(event) {
 
     if (event.key === "Enter") {
-        searchAnime(); 
+        searchAnime();
     }
-});
 
+});
