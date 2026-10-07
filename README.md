@@ -1,4 +1,5 @@
 # 🎌 Anime Search App
+🔗 Live demo: https://xusho7.github.io/anime-search-app/
 
 A simple web app that lets users search for anime titles using the AniList public API.
 
