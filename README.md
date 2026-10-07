@@ -3,6 +3,9 @@
 
 A simple web app that lets users search for anime titles using the AniList public API.
 
+<img width="1669" height="852" alt="Screenshot 2026-10-07 at 2 27 06 PM" src="https://github.com/user-attachments/assets/c00e3702-d22f-42fa-bdf2-ba0a5230672d" />
+
+
 ## 🚀 Features
 - Search for anime by name (click Search or press Enter)
 - Shows cover image, score, episode count, year, and status for each result
