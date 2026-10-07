@@ -1,31 +1,32 @@
 # 🎌 Anime Search App
 
-A simple web app that allows users to search for anime titles using a public API.
+A simple web app that lets users search for anime titles using the AniList public API.
 
 ## 🚀 Features
-- Search for anime by name
-- Displays real anime results from an API
-- Simple and responsive UI
-- Built with HTML, CSS, and JavaScript
+- Search for anime by name (click Search or press Enter)
+- Shows cover image, score, episode count, year, and status for each result
+- "Read More" button to expand the full synopsis
+- Friendly messages for empty searches, no results, and errors
+- Simple, responsive UI built with HTML, CSS, and JavaScript
 
-## 🛠️ Technologies Used
+## 🛠 Technologies Used
 - HTML
 - CSS
 - JavaScript
 - Fetch API
-- Jikan API (MyAnimeList data)
+- AniList (GraphQL API)
 
 ## 💡 What I Learned
 - DOM manipulation
-- Working with APIs using fetch
-- Handling JSON data
+- Making API requests with fetch and async/await
+- Writing a GraphQL query and handling JSON data
+- Escaping text from an API so it can't break the page
 - Basic frontend project structure
 
 ## 📌 Future Improvements
-- Show anime images
-- Add loading animations
+- Add a loading animation
+- Add a click-through details page
+- Handle special characters (like quotation marks) in the Read More text
 - Improve UI design
-- Add click details page
-
 ## 👤 Author
 Built by Shota 
